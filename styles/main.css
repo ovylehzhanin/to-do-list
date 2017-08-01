@@ -10,7 +10,6 @@ html, body {
 body {
   background-color: #00a4d6;
   background-image: url("../img/noisy-grid.png");
-  /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
 }
 
 * {
