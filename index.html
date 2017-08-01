@@ -15,19 +15,28 @@
       <!-- Test items -->
       <li class="task">
         <div class="task__inner">
-          <i class="task__check fa fa-circle"></i>
+          <i class="task__action task__check fa fa-circle-o"></i>
           <div class="content">Inner text</div>
-          <i class="task__remove fa fa-trash"></i>
+          <i class="task__action task__remove fa fa-trash"></i>
         </div>
       </li>
 
-      <li class="task">
+      <li class="task task--checked">
         <div class="task__inner">
-          <i class="task__check fa fa-circle"></i>
+          <i class="task__action task__check fa fa-check-circle-o"></i>
           <div class="content">Inner text</div>
-          <i class="task__remove fa fa-trash"></i>
+          <i class="task__action task__remove fa fa-trash"></i>
         </div>
       </li>
+
+      <li class="task task--removed">
+        <div class="task__inner">
+          <i class="task__action task__check fa fa-check-circle-o"></i>
+          <div class="content">Inner text</div>
+          <i class="task__action task__remove fa fa-trash"></i>
+        </div>
+      </li>
+
     </ul>
   </div>
 </body>

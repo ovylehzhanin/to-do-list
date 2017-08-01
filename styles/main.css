@@ -7,6 +7,12 @@ html, body {
   font-size: 16px;
 }
 
+body {
+  background-color: #00a4d6;
+  background-image: url("../img/noisy-grid.png");
+  /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+}
+
 * {
   box-sizing: border-box;
 }
@@ -19,19 +25,51 @@ html, body {
 }
 
 .actions {
+  padding: 0 1rem;
   height: 5vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  border-bottom: 1px solid grey;
+}
+
+.actions__text-input {
+  flex: 13;
+}
+
+.actions__add-btn {
+  flex: 1;
 }
 
 .task-list {
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: .5rem 1rem;
   height: 95vh;
+  overflow: auto;
+}
+
+.task-list::-webkit-scrollbar {
+  width: 0.2em;
+}
+
+.task-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.task-list::-webkit-scrollbar-thumb {
+  background: #929292;
+  border-radius: 2px;
 }
 
 .task {
-  border: 1px dotted blue;
-  height: 4rem;
+  height: 3.5rem;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.task:not(:last-child) {
+  margin-bottom: .5rem;
 }
 
 .task__inner {
@@ -39,8 +77,45 @@ html, body {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: stretch;
+  background-color: #D8DDEF;
+}
 
-  background-color: #ccc;
+.task--checked .task__inner {
+  background-color: #95BF74;
+}
+
+.task--checked .content {
+  text-decoration: line-through;
+}
+
+.task--removed .task__inner {
+  background-color: #E34A6F;
+}
+
+.task__action {
+  flex: 1;
+  height: 100%;
+  line-height: 3.5rem;
+  text-align: center;
+}
+
+.task__action:hover {
+  cursor: pointer;
+}
+
+.task__check:hover {
+  color: green;
+}
+
+.task__remove:hover {
+  color: red;
+}
+
+.content {
+  flex: 8;
+  user-select: none;
+  cursor: default;
 }
 
 .task__remove {
