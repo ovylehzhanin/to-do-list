@@ -4,15 +4,45 @@ html, body {
   margin: 0;
   padding: 0;
   font-family: "Open Sans", sans-serif;
-  font-size: 15px;
+  font-size: 16px;
 }
 
 * {
   box-sizing: border-box;
 }
 
-.app {}
+.app {
+  width: 500px;
+  border-width: 0px 2px 0px 0px;
+  border-style: dashed;
+  border-color: red;
+}
 
-.actions {}
+.actions {
+  height: 5vh;
+}
 
-.task-list {}
+.task-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 95vh;
+}
+
+.task {
+  border: 1px dotted blue;
+  height: 4rem;
+}
+
+.task__inner {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  background-color: #ccc;
+}
+
+.task__remove {
+  margin-left: auto;
+}
