@@ -1,5 +1,5 @@
 function Main() {
-  let page = new DOM();
+  let page = new pageDOM();
   let app = new App(page);
 
   app.init();

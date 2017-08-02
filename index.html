@@ -8,39 +8,17 @@
 <body>
   <div id="app" class="app">
     <div class="actions">
-      <input type="text" id="actions__text-input" class="actions__text-input" value="test">
+      <input 
+        type="text"
+        id="actions__text-input"
+        class="actions__text-input"
+        autofocus="true"
+        placeholder="type some text...">
       <button id="actions__add-btn" class="actions__add-btn">+</button>
     </div>
-    <ul id="task-list" class="task-list">
-      <!-- Test items -->
-      <!-- 
-      <li class="task">
-        <div class="task__inner">
-          <i class="task__action task__check fa fa-circle-o"></i>
-          <div class="content">Inner text</div>
-          <i class="task__action task__remove fa fa-trash"></i>
-        </div>
-      </li>
-
-      <li class="task task--checked">
-        <div class="task__inner">
-          <i class="task__action task__check fa fa-check-circle-o"></i>
-          <div class="content">Inner text</div>
-          <i class="task__action task__remove fa fa-trash"></i>
-        </div>
-      </li>
-
-      <li class="task task--removed">
-        <div class="task__inner">
-          <i class="task__action task__check fa fa-check-circle-o"></i>
-          <div class="content">Inner text</div>
-          <i class="task__action task__remove fa fa-trash"></i>
-        </div>
-      </li>
-       -->
-      <script src="scripts/app.js"></script>
-      <script src="scripts/main.js"></script>
-    </ul>
+    <ul id="task-list" class="task-list"></ul>
   </div>
+  <script src="scripts/app.js"></script>
+  <script src="scripts/main.js"></script>
 </body>
 </html>
