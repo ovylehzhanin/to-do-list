@@ -45,7 +45,7 @@ body {
   margin: 0;
   padding: .5rem 1rem;
   height: 95vh;
-  overflow: auto;
+  overflow: overlay;
 }
 
 .task-list::-webkit-scrollbar {
@@ -57,7 +57,7 @@ body {
 }
 
 .task-list::-webkit-scrollbar-thumb {
-  background: #929292;
+  background: blue;
   border-radius: 2px;
 }
 
@@ -101,14 +101,7 @@ body {
 
 .task__action:hover {
   cursor: pointer;
-}
-
-.task__check:hover {
-  color: green;
-}
-
-.task__remove:hover {
-  color: red;
+  color: #fff;
 }
 
 .content {

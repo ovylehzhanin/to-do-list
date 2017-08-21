@@ -26,7 +26,7 @@ const App = function (page) {
   let getListItemTemplate = function(itemData) {
     return `
       <div class="task__inner">
-        <i class="task__action task__check fa fa-circle-o"></i>
+        <i class="task__action task__check fa fa-square-o"></i>
         <div class="content">${itemData.content}
           <small>${itemData.date.year}/${itemData.date.month}/${itemData.date.day}</small>
         </div>
@@ -38,7 +38,7 @@ const App = function (page) {
   let createTask = function(textContent) {
     let date = new Date,
       item = {
-        id: date.valueOf(),
+        id: String(date.valueOf()),
         status: 'new',
         content: textContent,
         date: {
@@ -78,6 +78,18 @@ const App = function (page) {
     // saveAppData();
   };
 
+  let removeTask = function(array, id) {
+    let index = array.findIndex(item => item.id === id);
+
+    array.slice(index, 1);
+  };
+
+  let checkTask = function(array, id) {
+    let index = array.findIndex(item => item.id === id);
+
+    array[index].status = array[index].status === 'new' ? 'done' : 'new';
+  };
+
   let loadApp = function() {
     data.taskList = JSON.parse(appStorage(data.storageName)) || [];
   };
@@ -93,7 +105,32 @@ const App = function (page) {
       if (event.keyCode === ENTER_KEY_CODE) {
         addItem(page.textInput, page.taskList);
       }
-    }, false)
+    }, false);
+
+    page.taskList.addEventListener('click', function(event) {
+      let target = event.target,
+        parent = target.parentNode.parentNode;
+      // checking
+      if (target.classList.contains('task__check')) {
+        checkTask(data.taskList, parent.id);
+
+        if (target.classList.contains('fa-square-o')) {
+          target.classList.remove('fa-square-o');
+          target.classList.add('fa-check-square-o');
+        } else {
+          target.classList.remove('fa-check-square-o');
+          target.classList.add('fa-square-o');
+        }
+
+        parent.classList.toggle('task--checked');
+      }
+      // removing
+      if (event.target.classList.contains('task__remove')) {
+        removeTask(data.taskList, parent.id);
+
+        parent.classList.add('task--removed');
+      }
+    }, false);
 
   };
 
