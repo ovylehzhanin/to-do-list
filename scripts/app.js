@@ -26,7 +26,9 @@ const App = function (page) {
   let getListItemTemplate = function(itemData) {
     return `
       <div class="task__inner">
-        <i class="task__action task__check fa fa-square-o"></i>
+        <i class="task__action task__check fa 
+          ${itemData.status === 'new' ? 'fa-square-o' : 'fa-check-square-o'}">
+        </i>
         <div class="content">${itemData.content}
           <small>${itemData.date.year}/${itemData.date.month}/${itemData.date.day}</small>
         </div>
@@ -48,9 +50,8 @@ const App = function (page) {
         }
       };
 
-      data.taskList.push(item);
-
-      return item;
+    data.taskList.push(item);
+    return item;
   }
 
   let saveAppData = function() {
@@ -61,7 +62,7 @@ const App = function (page) {
     let li = document.createElement('li');
 
     li.id = itemData.id;
-    li.className = 'task';
+    li.className = itemData.status === 'new' ? 'task' : 'task task--checked';
     li.innerHTML = getListItemTemplate(itemData);
     
     return li;
@@ -75,23 +76,33 @@ const App = function (page) {
     let listItem = createListItem(createTask(input.value));
     rootElement.appendChild(listItem);
     clearInput(input);
-    // saveAppData();
+    saveAppData();
   };
 
   let removeTask = function(array, id) {
     let index = array.findIndex(item => item.id === id);
 
     array.splice(index, 1);
+    saveAppData();
   };
 
   let checkTask = function(array, id) {
     let index = array.findIndex(item => item.id === id);
 
     array[index].status = array[index].status === 'new' ? 'done' : 'new';
+    saveAppData();
   };
 
   let loadApp = function() {
+    let fragment = document.createDocumentFragment();
+
     data.taskList = JSON.parse(appStorage(data.storageName)) || [];
+
+    for (let i = 0, end = data.taskList.length; i < end; i++) {
+      fragment.appendChild(createListItem(data.taskList[i]));
+    }
+
+    page.taskList.appendChild(fragment);
   };
 
   let bindEvents = function() {
@@ -122,15 +133,11 @@ const App = function (page) {
           target.classList.add('fa-square-o');
         }
 
-        console.log(JSON.stringify(data.taskList).replace(/},{/gi, '},\n{'));
-
         parent.classList.toggle('task--checked');
       }
       // removing
       if (event.target.classList.contains('task__remove')) {
         removeTask(data.taskList, parent.id);
-
-        console.log(JSON.stringify(data.taskList).replace(/},{/gi, '},\n{'));
 
         parent.classList.add('task--removed');
         

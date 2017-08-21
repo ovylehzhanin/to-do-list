@@ -9,7 +9,6 @@ html, body {
 
 body {
   background-color: #00a4d6;
-  background-image: url("../img/noisy-grid.png");
 }
 
 * {
@@ -97,11 +96,13 @@ body {
   height: 100%;
   line-height: 3.5rem;
   text-align: center;
+  transition: all 200ms linear;
 }
 
 .task__action:hover {
   cursor: pointer;
   color: #fff;
+  transform: scale(1.05);
 }
 
 .content {
