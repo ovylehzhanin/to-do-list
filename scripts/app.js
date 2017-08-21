@@ -81,7 +81,7 @@ const App = function (page) {
   let removeTask = function(array, id) {
     let index = array.findIndex(item => item.id === id);
 
-    array.slice(index, 1);
+    array.splice(index, 1);
   };
 
   let checkTask = function(array, id) {
@@ -122,13 +122,21 @@ const App = function (page) {
           target.classList.add('fa-square-o');
         }
 
+        console.log(JSON.stringify(data.taskList).replace(/},{/gi, '},\n{'));
+
         parent.classList.toggle('task--checked');
       }
       // removing
       if (event.target.classList.contains('task__remove')) {
         removeTask(data.taskList, parent.id);
 
+        console.log(JSON.stringify(data.taskList).replace(/},{/gi, '},\n{'));
+
         parent.classList.add('task--removed');
+        
+        setTimeout(function() {
+          page.taskList.removeChild(parent);
+        }, 200);
       }
     }, false);
 
