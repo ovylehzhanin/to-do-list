@@ -23,7 +23,7 @@ const App = function (page) {
     }
   };
 
-  let getItemTemplate = function(itemData) {
+  let getListItemTemplate = function(itemData) {
     return `
       <div class="task__inner">
         <i class="task__action task__check fa fa-circle-o"></i>
@@ -35,51 +35,66 @@ const App = function (page) {
     `;
   };
 
+  let createTask = function(textContent) {
+    let date = new Date,
+      item = {
+        id: date.valueOf(),
+        status: 'new',
+        content: textContent,
+        date: {
+          year: date.getFullYear(),
+          month: date.getMonth(),
+          day: date.getDay()
+        }
+      };
+
+      data.taskList.push(item);
+
+      return item;
+  }
+
   let saveAppData = function() {
     appStorage(data.storageName, JSON.stringify(data.taskList));
   };
 
-  let addItem = function() {
-    let date = new Date;
+  let createListItem = function(itemData) {
     let li = document.createElement('li');
-    let item = {
-      id: date.valueOf(),
-      status: 'new',
-      content: page.textInput.value,
-      date: {
-        year: date.getFullYear(),
-        month: date.getMonth(),
-        day: date.getDay()
-      }
-    };
 
-    li.id = item.id;
+    li.id = itemData.id;
     li.className = 'task';
-    li.innerHTML = getItemTemplate(item);
+    li.innerHTML = getListItemTemplate(itemData);
     
-    data.taskList.push(item);
-    page.taskList.append(li);
-    page.textInput.value = '';
+    return li;
+  };
+
+  let clearInput = function(input) {
+    input.value = '';
+  };
+
+  let addItem = function(input, rootElement) {
+    let listItem = createListItem(createTask(input.value));
+    rootElement.appendChild(listItem);
+    clearInput(input);
     // saveAppData();
   };
 
   let loadApp = function() {
     data.taskList = JSON.parse(appStorage(data.storageName)) || [];
-    console.log(JSON.stringify(data.taskList));
   };
 
   let bindEvents = function() {
-    let _app = this;
+    page.addItemButton.addEventListener('click', function() {
+      addItem(page.textInput, page.taskList);
+    }, false);
 
-    page.addItemButton.addEventListener('click', addItem, false);
-    
     page.textInput.addEventListener('keydown', function(event) {
       const ENTER_KEY_CODE = 13;
 
       if (event.keyCode === ENTER_KEY_CODE) {
-        addItem();
+        addItem(page.textInput, page.taskList);
       }
     }, false)
+
   };
 
   this.init = function() {
