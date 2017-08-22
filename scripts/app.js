@@ -1,3 +1,9 @@
+/*
+  * use bollean complete = true/false
+  * add handler for 'check' and 'remove' on createListItem() instead target click usage
+  * unnecessary date{}, use timestamp in list item creation
+*/
+
 function _(id) {
   return document.getElementById(id);
 }
@@ -29,26 +35,27 @@ const App = function (page) {
         <i class="task__action task__check fa 
           ${itemData.status === 'new' ? 'fa-square-o' : 'fa-check-square-o'}">
         </i>
-        <div class="content">${itemData.content}
-          <small>${itemData.date.year}/${itemData.date.month}/${itemData.date.day}</small>
-        </div>
+        <div class="content">${itemData.content}</div>
         <i class="task__action task__remove fa fa-trash"></i>
       </div>
     `;
   };
 
+// <small>${itemData.date.year}/${itemData.date.month}/${itemData.date.day}</small>
+
   let createTask = function(textContent) {
     let date = new Date;
 
     return {
-      id: String(date.valueOf()),
+      id: date.valueOf(),
       status: 'new',
-      content: textContent,
-      date: {
-        year: date.getFullYear(),
-        month: date.getMonth(),
-        day: date.getDay()
-      }  
+      content: textContent
+      // ,
+      // date: {
+      //   year: date.getFullYear(),
+      //   month: date.getMonth(),
+      //   day: date.getDay()
+      // }
     };
   };
 
@@ -81,14 +88,14 @@ const App = function (page) {
   };
 
   let removeTask = function(array, id) {
-    let index = array.findIndex(item => item.id === id);
+    let index = array.findIndex(item => String(item.id) === id);
 
     array.splice(index, 1);
     saveAppData();
   };
 
   let checkTask = function(array, id) {
-    let index = array.findIndex(item => item.id === id);
+    let index = array.findIndex(item => String(item.id) === id);
 
     array[index].status = array[index].status === 'new' ? 'done' : 'new';
     saveAppData();
