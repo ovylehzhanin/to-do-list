@@ -38,21 +38,19 @@ const App = function (page) {
   };
 
   let createTask = function(textContent) {
-    let date = new Date,
-      item = {
-        id: String(date.valueOf()),
-        status: 'new',
-        content: textContent,
-        date: {
-          year: date.getFullYear(),
-          month: date.getMonth(),
-          day: date.getDay()
-        }
-      };
+    let date = new Date;
 
-    data.taskList.push(item);
-    return item;
-  }
+    return {
+      id: String(date.valueOf()),
+      status: 'new',
+      content: textContent,
+      date: {
+        year: date.getFullYear(),
+        month: date.getMonth(),
+        day: date.getDay()
+      }  
+    };
+  };
 
   let saveAppData = function() {
     appStorage(data.storageName, JSON.stringify(data.taskList));
@@ -73,7 +71,10 @@ const App = function (page) {
   };
 
   let addItem = function(input, rootElement) {
-    let listItem = createListItem(createTask(input.value));
+    let task = createTask(input.value),
+      listItem = createListItem(task);
+
+    data.taskList.push(task);
     rootElement.appendChild(listItem);
     clearInput(input);
     saveAppData();
